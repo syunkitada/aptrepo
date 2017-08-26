@@ -5,4 +5,4 @@ login:
 	sudo docker login
 
 push:
-	sudo docker push syunkitada/centos16-deb-builder
+	sudo docker push syunkitada/ubuntu16-deb-builder
