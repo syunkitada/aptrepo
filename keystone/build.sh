@@ -10,6 +10,8 @@ PKG_DIR=$WORK_DIR/pkg
 DEB_DIR=$PKG_DIR/DEBIAN
 
 mkdir -p $DEB_DIR
+mkdir -p $PKG_DIR/var/lib/${NAME}
+mkdir -p $PKG_DIR/var/log/${NAME}
 cd $WORK_DIR
 
 virtualenv $PKG_DIR/opt/$NAME
