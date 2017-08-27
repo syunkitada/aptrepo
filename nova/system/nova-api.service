@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenStack Nova Service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/nova/bin/nova-api \
+    --config-file=/etc/nova/nova.conf \
+    --log-file=/var/log/nova/api.log
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

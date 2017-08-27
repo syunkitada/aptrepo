@@ -1,0 +1,20 @@
+[Unit]
+Description=OpenStack Dashboard Service
+After=syslog.target network.target
+
+[Service]
+Type=notify
+EnvironmentFile=/etc/horizon/service-horizon-admin-uwsgi.env
+ExecStart=/usr/bin/uwsgi --socket ${UWSGI_SOCKET} --master --home /opt/horizon \
+          --wsgi-file /opt/horizon/share/horizon/openstack_dashboard/wsgi/django.wsgi \
+          --chdir /opt/horizon/share/horizon \
+          --env DJANGO_SETTINGS_MODULE=openstack_dashboard.settings \
+          --processes ${UWSGI_PROCESSES} --threads ${UWSGI_THREADS}
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenStack Volume Service
+After=syslog.target network.target
+
+[Service]
+Environment="PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/cinder/bin"
+Type=simple
+ExecStart=/opt/cinder/bin/cinder-volume \
+          --config-file=/etc/cinder/cinder.conf \
+          --log-file=/var/log/cinder/volume.log
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

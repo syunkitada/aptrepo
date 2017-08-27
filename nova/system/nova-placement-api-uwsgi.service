@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenStack Nova Service
+After=syslog.target network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/uwsgi --socket 127.0.0.1:18778 --master --home /opt/nova \
+          --wsgi-file /opt/nova/bin/nova-placement-api \
+          --processes 2 --threads 1
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

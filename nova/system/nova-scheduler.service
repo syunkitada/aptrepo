@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenStack Nova Service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/nova/bin/nova-scheduler \
+    --config-file=/etc/nova/nova.conf \
+    --log-file=/var/log/nova/scheduler.log
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

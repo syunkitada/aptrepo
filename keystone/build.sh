@@ -14,8 +14,10 @@ mkdir -p $PKG_DIR/var/lib/${NAME}
 mkdir -p $PKG_DIR/var/log/${NAME}
 cd $WORK_DIR
 
-virtualenv $PKG_DIR/opt/$NAME
-$PKG_DIR/opt/${NAME}/bin/pip install -r $BASE_DIR/pike-requirements.txt
+
+# make /opt/$NAME
+virtualenv ${PKG_DIR}/opt/${NAME}
+${PKG_DIR}/opt/${NAME}/bin/pip install -r ${BASE_DIR}/pike-requirements.txt
 
 wget https://github.com/openstack/${NAME}/archive/${VERSION}.tar.gz
 tar -xf ${VERSION}.tar.gz
@@ -26,19 +28,28 @@ git init
 git add .
 git commit -m ${VERSION}
 git tag -a ${VERSION} -m ${VERSION}
-$PKG_DIR/opt/${NAME}/bin/python setup.py install
+${PKG_DIR}/opt/${NAME}/bin/python setup.py install
 
-mkdir -p $PKG_DIR/etc/${NAME}
-cp -r etc/* $PKG_DIR/etc/${NAME}
-
-mkdir -p $PKG_DIR/lib/systemd
-cp -r $BASE_DIR/system $PKG_DIR/lib/systemd
-
-cd $PKG_DIR/opt/${NAME}
+cd ${PKG_DIR}/opt/${NAME}
 find ./ -name '*.pyc' | xargs rm -f || echo 'no *.pyc'
 sed -i "s/\/tmp\/work\/pkg//g" bin/*
 
-cat << EOS > $DEB_DIR/control
+
+# make system
+mkdir -p ${PKG_DIR}/lib/systemd
+cp -r ${BASE_DIR}/system ${PKG_DIR}/lib/systemd
+
+
+# make etc and conffiles
+mkdir -p ${PKG_DIR}/etc/${NAME}
+cp -r ${BASE_DIR}/etc/* ${PKG_DIR}/etc/${NAME}
+cp -r ${WORK_DIR}/${NAME}-${VERSION}/etc/* ${PKG_DIR}/etc/${NAME}
+touch ${PKG_DIR}/etc/${NAME}/keystone.conf
+for file in `find ${PKG_DIR}/etc/${NAME} -type f | awk -F "${PKG_DIR}" '{print $2}'`; do echo "${file}" >> ${DEB_DIR}/conffiles; done
+
+
+# make control
+cat << EOS > ${DEB_DIR}/control
 Package: ${NAME}
 Maintainer: Kitada Shyunya <syun.kitada@gmail.com>
 Architecture: amd64
@@ -46,6 +57,8 @@ Version: ${VERSION}-${RELEASE}
 Description: ${NAME}
 EOS
 
+
+# build deb
 cd $WORK_DIR
 fakeroot dpkg-deb --build $PKG_DIR .
 

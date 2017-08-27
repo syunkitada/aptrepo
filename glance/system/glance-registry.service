@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenStack Image Service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/glance/service-glance-registry.env
+ExecStart=/opt/glance/bin/glance-registry \
+    --config-file=/etc/glance/glance-registry.conf \
+    --log-file=/var/log/glance/registry.log
+ExecStop=/bin/kill -WINCH ${MAINPID}
+User=root
+Restart=always
+KillSignal=SIGQUIT
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
