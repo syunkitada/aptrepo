@@ -21,6 +21,13 @@ cd $PKG_DIR/opt/${NAME}
 find ./ -name '*.pyc' | xargs rm -f || echo 'no *.pyc'
 sed -i "s/\/tmp\/work\/pkg//g" bin/*
 
+
+mkdir -p $PKG_DIR/usr/bin/
+cd $PKG_DIR/usr/bin/
+ln -s ../../opt/bin/openstack
+ln -s ../../opt/bin/uwsgi
+
+
 cat << EOS > $DEB_DIR/control
 Package: ${NAME}
 Maintainer: Kitada Shyunya <syun.kitada@gmail.com>
