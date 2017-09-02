@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=notify
-EnvironmentFile=/etc/horizon/service-horizon-admin-uwsgi.env
+EnvironmentFile=/etc/horizon/service-horizon-uwsgi.env
 ExecStart=/opt/horizon/bin/uwsgi --socket ${UWSGI_SOCKET} --master --home /opt/horizon \
           --wsgi-file /opt/horizon/share/horizon/openstack_dashboard/wsgi/django.wsgi \
           --chdir /opt/horizon/share/horizon \

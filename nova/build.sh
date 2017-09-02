@@ -16,8 +16,8 @@ cd $WORK_DIR
 
 
 # make /opt/$NAME
-virtualenv ${PKG_DIR}/opt/${NAME}
-${PKG_DIR}/opt/${NAME}/bin/pip install -r ${BASE_DIR}/pike-requirements.txt
+virtualenv ${PKG_DIR}/opt/${NAME} --system-site-packages
+${PKG_DIR}/opt/${NAME}/bin/pip install -r ${BASE_DIR}/pike-requirements.txt -I
 
 wget https://github.com/openstack/${NAME}/archive/${VERSION}.tar.gz
 tar -xf ${VERSION}.tar.gz
