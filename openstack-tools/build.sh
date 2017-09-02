@@ -24,8 +24,8 @@ sed -i "s/\/tmp\/work\/pkg//g" bin/*
 
 mkdir -p $PKG_DIR/usr/bin/
 cd $PKG_DIR/usr/bin/
-ln -s ../../opt/bin/openstack
-ln -s ../../opt/bin/uwsgi
+ln -s ../../opt/${NAME}/bin/openstack
+ln -s ../../opt/${NAME}/bin/uwsgi
 
 
 cat << EOS > $DEB_DIR/control

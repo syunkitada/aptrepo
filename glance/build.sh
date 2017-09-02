@@ -47,9 +47,8 @@ cp -r ${WORK_DIR}/${NAME}-${VERSION}/etc/* ${PKG_DIR}/etc/${NAME}
 touch ${PKG_DIR}/etc/${NAME}/glance-api.conf
 touch ${PKG_DIR}/etc/${NAME}/glance-registry.conf
 
-for file in `find ${PKG_DIR}/etc/${NAME} type file | awk -F "${PKG_DIR}" '{print $2}'`; do echo "${file}" >> ${DEB_DIR}/conffiles; done
+for file in `find ${PKG_DIR}/etc/${NAME} -type f | awk -F "${PKG_DIR}" '{print $2}'`; do echo "${file}" >> ${DEB_DIR}/conffiles; done
 cat ${DEB_DIR}/conffiles
-
 
 # make control
 cat << EOS > ${DEB_DIR}/control

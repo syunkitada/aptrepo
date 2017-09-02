@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=notify
-EnvironmentFile=/etc/keystone/service-keystone-admin-uwsgi.env
+EnvironmentFile=/etc/keystone/service-keystone-public-uwsgi.env
 ExecStart=/opt/keystone/bin/uwsgi --socket ${UWSGI_SOCKET} --master --home /opt/keystone --wsgi-file /opt/keystone/bin/keystone-wsgi-public --processes ${UWSGI_PROCESSES} --threads ${UWSGI_THREADS}
 ExecStop=/bin/kill -WINCH ${MAINPID}
 User=root
