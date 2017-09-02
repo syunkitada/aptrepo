@@ -93,3 +93,4 @@ zope.interface==4.4.2
 # extentions
 PyMySQL==0.7.11
 python-memcached==1.58
+uwsgi==2.0.15
