@@ -3,7 +3,7 @@ Description=OpenStack Network Service
 After=syslog.target network.target
 
 [Service]
-Environment="PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/neutron/bin"
+Environment="PATH=/usr/local/bin:/usr/bin:/sbin:/usr/local/sbin:/usr/sbin:/opt/neutron/bin"
 Type=simple
 ExecStart=/opt/neutron/bin/neutron-linuxbridge-agent \
           --config-file=/etc/neutron/neutron.conf \
