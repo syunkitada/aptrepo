@@ -48,7 +48,8 @@ cd libvirt-${VERSION}
             --without-apparmor \
             --without-hal \
             --with-udev \
-            --with-init-script=systemd \
+            --with-init-script=systemd
+
 make -j16 V=1
 make install DESTDIR=/tmp/work/pkg SYSTEMD_UNIT_DIR=/lib/systemd/system/ V=1
 make -C examples distclean V=1
