@@ -14,8 +14,7 @@ cd $WORK_DIR
 apt-get update
 apt-get install -y pkg-config zlib1g-dev librdmacm-dev libibverbs-dev libvde-dev libvdeplug-dev \
                    libcap-ng-dev libglib2.0-dev libpixman-1-dev libaio-dev libnuma-dev \
-                   libjemalloc-dev libiscsi-dev
-# require libjemalloc1 libvdeplug2
+                   libjemalloc-dev libiscsi-dev libibumad-dev
 
 wget http://download.qemu-project.org/qemu-${VERSION}.tar.xz
 tar xf qemu-${VERSION}.tar.xz
