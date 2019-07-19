@@ -3,6 +3,7 @@
 BASE_DIR=/tmp/base/
 NAME=$1
 VERSION=$2
+OS_RELEASE=$3
 RELEASE=0
 WORK_DIR=/tmp/work
 PKG_DIR=$WORK_DIR/pkg
@@ -38,4 +39,4 @@ EOS
 cd $WORK_DIR
 fakeroot dpkg-deb --build $PKG_DIR .
 
-cp *.deb /opt/aptrepo/ubuntu/16/amd64/pool
+cp *.deb /opt/aptrepo/ubuntu/${OS_RELEASE}/amd64/pool
