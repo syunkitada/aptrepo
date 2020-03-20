@@ -90,7 +90,7 @@ taskflow==2.13.0
 Tempita==0.5.2
 tenacity==4.3.0
 unicodecsv==0.14.1
-urllib3==1.21.1
+urllib3==1.24.2
 vine==1.1.4
 WebOb==1.7.3
 wrapt==1.10.10
